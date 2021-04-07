@@ -4,6 +4,7 @@
 	</head>
 	<body>
 		<?php
+		$connect = mysqli_connect("localhost", "root", "delta", "pet");  
 			session_start();
 			session_destroy();
 			session_start();
@@ -16,15 +17,20 @@
 				}
 				else
 				{
-					$user_name=trim($_POST['username']);
+					$user_name = mysqli_real_escape_string($connect, $_POST["username"]);  
 				}
 				if(empty($_POST['password']))
 				{
 					$data_missing[]='Password';
+					
+					
 				}
 				else
 				{
-					$pass_word=$_POST['password'];
+					$password=mysqli_real_escape_string($connect,$_POST['password']);
+					
+					
+
 				}
 				if(empty($_POST['user_type']))
 				{
@@ -32,19 +38,23 @@
 				}
 				else
 				{
-					$user_type=$_POST['user_type'];
+					$user_type = mysqli_real_escape_string($connect, $_POST["user_type"]);  
 					$_SESSION['user_type']=$user_type;
 				}
-
+                
 
 				if(empty($data_missing))
 				{
 					if($user_type=='Customer')
 					{
 						require_once('Database Connection file/mysqli_connect.php');
-						$query="SELECT count(*) FROM users where username=? and password=?";
+				
+                              
+                        
+
+						$query="SELECT count(*) FROM users where username='$user_name'";
 						$stmt=mysqli_prepare($dbc,$query);
-						mysqli_stmt_bind_param($stmt,"ss",$user_name,$pass_word);
+						mysqli_stmt_bind_param($stmt,"s",$user_name);
 						mysqli_stmt_execute($stmt);
 						mysqli_stmt_bind_result($stmt,$cnt);
 						mysqli_stmt_fetch($stmt);
@@ -55,35 +65,25 @@
 						$response=@mysqli_query($dbc,$query);
 						echo $affected_rows;
 						*/
+					}
 						if($cnt==1)
 						{
+							if(password_verify($password, $row['password']))  
+                        
+							
 							echo "Logged in <br>";
 							$_SESSION['login_user']=$user_name;
 							echo $_SESSION['login_user']." is logged in";
 							header("location:homepage.php");
+							return true;
 						}
-						else
-						{
-							echo "Login Error";
-							session_destroy();
-							header('location:login.php?msg=failed');
-						}
+						
 					}
 					
 				}
-				else
-				{
-					echo "The following data fields were empty<br>";
-					foreach($data_missing as $missing)
-					{
-						echo $missing ."<br>";
-					}
-				}
-			}
-			else
-			{
-				echo "Submit request not received";
-			}
-		?>
+			
+				
+			?>
+			
 	</body>
 </html>

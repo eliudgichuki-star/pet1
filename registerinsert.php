@@ -19,12 +19,12 @@ $email=$_POST['email'];
 $fullname=$_POST['fullname'];
 $location=$_POST['location'];
 $password=$_POST['password'];
-$confirmpassword=$_POST['confirmpassword'];
+//salt and hash password
+$hash  = password_hash($password, PASSWORD_DEFAULT);
 
 
 
-
-$sql="INSERT INTO users (username,email,fullname,location,password,confirmpassword) VALUES('$username','$email','$fullname','$location','$password','$confirmpassword')";
+$sql="INSERT INTO users (username,email,fullname,location,password) VALUES('$username','$email','$fullname','$location','$hash')";
 
 if(!mysqli_query($con,$sql))
 	

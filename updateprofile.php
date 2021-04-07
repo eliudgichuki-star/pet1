@@ -13,8 +13,7 @@
             $fullname=$_POST['fullname'];
             $location=$_POST['location'];
             $password=$_POST['password'];
-            $confirmpassword=$_POST['confirmpassword'];
-            $sql = "UPDATE users ". "SET username = '$username' ,email='$email',fullname='$fullname',location='$location',password='$password',confirmpassword='$confirmpassword'". 
+            $sql = "UPDATE users ". "SET username = '$username' ,email='$email',fullname='$fullname',location='$location',password='$password'". 
                "WHERE  username= '$ai'" ;
            
             $retval = mysqli_query( $db_con,$sql );
@@ -362,10 +361,10 @@ return true;
 	<label for="location"><b>Location</b></label>
     <input type="text" placeholder="Enter Location" name="location" id="location" value="<?php echo $row['location'];?>"  required>
     <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" id="password" value="<?php echo $row['password'];?>"  required>
+    <input type="password" placeholder="Enter Password" name="password" id="password" value=""  required>
 
     <label for="confirmpassword"><b>Confirm Password</b></label>
-    <input type="password" placeholder="Confirm Password" name="confirmpassword" id="confirmpassword" value="<?php echo $row['confirmpassword'];?>"  required>
+    <input type="password" placeholder="Confirm Password" name="confirmpassword" id="confirmpassword" value=""  required>
     <hr>
     
 <?php } ?>
