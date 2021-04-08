@@ -281,7 +281,7 @@ p,h2,h3{
     
     <?php
  
-			echo "<a class='right'>Welcome ".$_SESSION['login_user']." !</a>!";
+			echo "<a class='right'>Welcome ".$_SESSION['login_user']." !</a>";
 			?>
 			
 </div>

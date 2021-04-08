@@ -17,7 +17,7 @@
 				}
 				else
 				{
-					$user_name = mysqli_real_escape_string($connect, $_POST["username"]);  
+					$user_name =  $_POST["username"];  
 				}
 				if(empty($_POST['password']))
 				{
